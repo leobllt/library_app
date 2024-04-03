@@ -11,7 +11,7 @@ class App extends StatelessWidget {
       title: "Biblioteca",
       theme: ThemeData(
         fontFamily: 'Jost',
-        scaffoldBackgroundColor: const Color.fromRGBO(252, 252, 255, 1),
+        scaffoldBackgroundColor:  const Color.fromRGBO(252, 252, 255, 1),
       ),
       home: const NavigationPage(),
     );
