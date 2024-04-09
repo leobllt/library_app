@@ -1,142 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/pages/notification_page.dart';
+import 'package:library_app/controllers/books_controller.dart';
+import 'package:library_app/pages/favorite_page.dart';
+import 'package:library_app/widgets/horizontal_book_list.dart';
+import 'package:library_app/widgets/section_heading.dart';
+import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
-  final String username = "FULANO";
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
-  static List<Map<String, dynamic>> livrosPendentes = [
-    {"titulo": "Livro 1", "imagem": "assets/livro1.png"},
-    {"titulo": "Livro 2", "imagem": "assets/livro2.png"},
-    {"titulo": "Livro 3", "imagem": "assets/livro3.png"},
-  ];
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
 
-  static List<Map<String, dynamic>> livrosReservados = [
-    {"titulo": "Livro A", "imagem": "assets/livroA.png"},
-    {"titulo": "Livro B", "imagem": "assets/livroB.png"},
-    {"titulo": "Livro C", "imagem": "assets/livroC.png"},
-  ];
-
+class _HomeViewState extends State<HomeView>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Olá, $username!"),
+        title: const Text("Olá, PESSOA!"),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications),
+            icon: const Icon(Icons.favorite),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const NotificationPage()),
+                MaterialPageRoute(builder: (context) => const FavoritePage()),
               );
             }, 
           ),
         ],
         backgroundColor: const Color.fromRGBO(0, 255, 191, 1),
       ),
-      body: Column(
-        children: [
-          const Padding(padding: EdgeInsets.all(8)),
-          const Row(
-            children:[
-              Padding(padding: EdgeInsets.all(8)),
-              Text(
-                "Títulos pendentes",
-                style: TextStyle(
-                  fontFamily: 'jost',
-                  fontSize: 16,
-                ),
-              ),
-              Expanded(
-                child: Divider(
-                  color: Colors.black,
-                  indent: 10,
-                  endIndent: 10,
-                ),
-              ),
-            ],
-          ),
-           Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0,
-              ),
-              itemCount: livrosPendentes.length,
-              itemBuilder: (context, index) {
-                return GridTile(
-                  footer: GridTileBar(
-                    title: SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        livrosPendentes[index]["titulo"],
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    )
-                  ),
-                  child: Image.asset(
-                    livrosPendentes[index]["imagem"],
-                  ),
-                );
-              },
-            ),
-          ),
-          const Padding(padding: EdgeInsets.all(8)),
-          const Row(
-            children:[
-              Padding(padding: EdgeInsets.all(8)),
-              Text(
-                "Títulos reservados",
-                style: TextStyle(
-                  fontFamily: 'jost',
-                  fontSize: 16,
-                ),
-              ),
-              Expanded(
-                child: Divider(
-                  color: Colors.black,
-                  indent: 10,
-                  endIndent: 10,
-                ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0,
-              ),
-              itemCount: livrosReservados.length,
-              itemBuilder: (context, index) {
-                return GridTile(
-                  footer: GridTileBar(
-                    title: SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        livrosReservados[index]["titulo"],
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    )
-                  ),
-                  child: Image.asset(
-                    livrosReservados[index]["imagem"],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
+      body: Consumer<BooksController>(builder: (context, controller, _) {
+        final reservedBooks = controller.reservedBooks;
+
+        if (controller.loading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        return Column(
+          children: [
+            const Padding(padding: EdgeInsets.all(8)),
+            const SectionHeading(headTitle: "Títulos emprestados"),
+            HorizontalBookList(list: controller.borrowedBooks),
+            const SectionHeading(headTitle: "Títulos reservados"),
+            HorizontalBookList(list: reservedBooks)
+          ],
+        );
+        }),
+     );
   }
 }
