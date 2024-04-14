@@ -80,7 +80,6 @@ class _Option extends StatelessWidget{
                 text,
                 style: const TextStyle(
                 color: Colors.black,
-                fontFamily: 'jost',
                 fontSize: 16,
               ),
             ),

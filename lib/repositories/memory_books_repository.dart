@@ -149,6 +149,11 @@ class MemoryBooksRepository extends BooksRepository {
   }
 
   @override
+  Future<List<Book>> searchQuery(String bookName) async {
+    return Future.value(_allBooks.where((book) => book.title.toLowerCase().contains(bookName.toLowerCase())).toList());
+  }
+
+  @override
   Future<bool> createReserved(String id){
     if(!_reservedBooks.contains(id)){
       _reservedBooks.add(id);

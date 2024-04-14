@@ -5,6 +5,7 @@ abstract class BooksRepository {
   Future<List<Book>> fetchBorrowedBooks();
   Future<List<Book>> fetchReservedBooks();
   Future<List<Book>> fetchFavoriteBooks();
+  Future<List<Book>> searchQuery(String bookName);
   Future<bool> createReserved(String id);
   Future<bool> deleteReserved(String id);
   Future<bool> createFavorite(String id);

@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/controllers/books_controller.dart';
+import 'package:library_app/widgets/vertical_book_list.dart';
+import 'package:provider/provider.dart';
 
 class SearchView extends StatefulWidget {
-  const SearchView({super.key});
+  const SearchView({Key? key}) : super(key: key);
 
   @override
   _SearchViewState createState() => _SearchViewState();
 }
 
 class _SearchViewState extends State<SearchView> {
-  final _formkey = GlobalKey<FormState>();
-  final _value   = TextEditingController();
-
-  verificarForm() {
-  if(_formkey.currentState!.validate()){
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("?? Resultados"),
-      ),
-    );
-  }
-}
+  final _formKey = GlobalKey<FormState>();
+  final _value = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,45 +26,75 @@ class _SearchViewState extends State<SearchView> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Row(         
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Form(
-                    key: _formkey,
-                    child: TextFormField(
-                      controller: _value,
-                      style:const TextStyle(
-                        fontFamily: 'jost',
-                        fontSize: 16,
-                      ),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "Livro, Autor...",
-                      ),
-                      validator:(value) {
-                        if(value!.isEmpty) {
-                          return "Caixa de pesquisa vazia";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
+                  child: _buildSearchField(),
                 ),
-                Padding(padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: IconButton(
-                    onPressed: verificarForm,
-                    icon: const Icon(
-                      Icons.search,
-                      size: 35,
-                    ),
-                  ),
-                ),
+                const SizedBox(width: 10),
+                _buildSearchButton(context),
               ],
-            )
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: _buildSearchResults(),
+            ),
           ],
         ),
-      )
+      ),
+    );
+  }
+
+  Widget _buildSearchField() {
+    return Form(
+      key: _formKey,
+      child: TextFormField(
+        controller: _value,
+        style: const TextStyle(fontSize: 16),
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: "Livro, Autor...",
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "Caixa de pesquisa vazia";
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildSearchButton(BuildContext context) {
+    return IconButton(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      onPressed: () => _verificarForm(context),
+      icon: const Icon(
+        Icons.search,
+        size: 35,
+      ),
+    );
+  }
+
+  void _verificarForm(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      final String searchTerm = _value.text;
+      final booksController = context.read<BooksController>();
+      booksController.searchQuery(searchTerm).then((searchResults) {
+        booksController.setSearchResults(searchResults);
+      });
+    }
+  }
+
+  Widget _buildSearchResults() {
+    return Consumer<BooksController>(
+      builder: (context, controller, _) {
+        final searchResults = controller.searchResults;
+        if (controller.loading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return VerticalBookList(list: searchResults);
+      },
     );
   }
 }

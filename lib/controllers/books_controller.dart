@@ -9,6 +9,7 @@ class BooksController extends ChangeNotifier {
   late final List<Book> borrowedBooks;
   List<Book> reservedBooks = [];
   List<Book> favoriteBooks = [];
+  List<Book> searchResults = [];
   bool loading = true;
 
   BooksController(this.booksRepository) {
@@ -83,6 +84,16 @@ class BooksController extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<List<Book>> searchQuery(String bookName) async {
+    loading = true;
+    notifyListeners();
+    searchResults = await booksRepository.searchQuery(bookName);
+    loading = false;
+    notifyListeners();
+
+    return searchResults;
+  }
+
   bool isReserved(String id){
     return booksRepository.isReserved(id);
   }
@@ -93,5 +104,10 @@ class BooksController extends ChangeNotifier {
 
   bool isFavorite(String id){
     return booksRepository.isFavorite(id);
+  }
+
+  void setSearchResults(List<Book> results) {
+    searchResults = results;
+    notifyListeners();
   }
 }
