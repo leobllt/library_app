@@ -3,6 +3,8 @@ import 'package:library_app/models/book.dart';
 import 'package:library_app/pages/book_detail.dart';
 import 'package:library_app/widgets/vertical_book_item.dart';
 
+// Classe que exibe os livros verticalmente, tal como um carrousel
+// É possível exibir os detalhes de um livro ao clicá-lo
 class VerticalBookList extends StatelessWidget {
   final List<Book> list;
   const VerticalBookList({super.key, required this.list});
@@ -23,7 +25,7 @@ class VerticalBookList extends StatelessWidget {
                   onTap:  () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => BookDetail(book: list[index], reservar: (id)=>{},)),
+                      MaterialPageRoute(builder: (context) => BookDetail(book: list[index])),
                     );
                   },
                   child: VerticalBookItem(book: list[index])

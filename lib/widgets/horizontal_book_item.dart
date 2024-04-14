@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/models/book.dart';
 
+// Classe que representa cada item de uma lista horizontal, contendo uma imagem e um label abaixo dela
 class HorizontalBookItem extends StatelessWidget {
   final Book book;
   const HorizontalBookItem({super.key, required this.book});
@@ -20,10 +21,10 @@ class HorizontalBookItem extends StatelessWidget {
             SizedBox(
               width: 90,
               child: Text(
-                      book.title,  
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                    ),
+                book.title,  
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         )

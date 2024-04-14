@@ -3,6 +3,7 @@ import 'package:library_app/controllers/books_controller.dart';
 import 'package:library_app/widgets/vertical_book_list.dart';
 import 'package:provider/provider.dart';
 
+// Classe que exibe livros favoritados pelo usuário
 class FavoritePage extends StatelessWidget {
   const FavoritePage({super.key});
 

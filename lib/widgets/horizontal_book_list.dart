@@ -3,6 +3,8 @@ import 'package:library_app/models/book.dart';
 import 'package:library_app/pages/book_detail.dart';
 import 'package:library_app/widgets/horizontal_book_item.dart';
 
+// Classe que exibe os livros horizontalmente, tal como um carrousel
+// É possível exibir os detalhes de um livro ao clicá-lo
 class HorizontalBookList extends StatelessWidget {
   final List<Book> list;
   const HorizontalBookList({super.key, required this.list});
@@ -25,7 +27,7 @@ class HorizontalBookList extends StatelessWidget {
                   onTap:  () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => BookDetail(book: list[index], reservar: (id)=>{},)),
+                      MaterialPageRoute(builder: (context) => BookDetail(book: list[index])),
                     );
                   },
                   child: HorizontalBookItem(book: list[index])

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../models/book.dart';
 import '../repositories/books_repository.dart';
 
+// Classe que permite controlar gerenciamento de dados pela aplicação
 class BooksController extends ChangeNotifier {
   final BooksRepository booksRepository;
   late final List<Book> borrowedBooks;
@@ -80,5 +81,17 @@ class BooksController extends ChangeNotifier {
       favoriteBooks.remove(book);
     }
     notifyListeners();
+  }
+
+  bool isReserved(String id){
+    return booksRepository.isReserved(id);
+  }
+
+  bool isBorrowed(String id){
+    return booksRepository.isBorrowed(id);
+  }
+
+  bool isFavorite(String id){
+    return booksRepository.isFavorite(id);
   }
 }

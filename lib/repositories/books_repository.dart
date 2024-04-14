@@ -10,4 +10,7 @@ abstract class BooksRepository {
   Future<bool> createFavorite(String id);
   Future<bool> deletefavorite(String id);
   Future<Book> findById(String id);
+  bool isReserved(String id);
+  bool isBorrowed(String id);
+  bool isFavorite(String id);
 }

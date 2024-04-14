@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/controllers/books_controller.dart';
 import 'package:library_app/models/book.dart';
+import 'package:provider/provider.dart';
 
+// Página que exibe todos os detalhes do livro selecionado, bem como permite reservá-lo
 class BookDetail extends StatelessWidget {
   final Book book;
-  final Function(String) reservar;
-  const BookDetail({super.key, required this.book, required this.reservar});
+  const BookDetail({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class BookDetail extends StatelessWidget {
                 margin: const EdgeInsets.all(10),
                 padding: const EdgeInsets.all(10.0),
                 decoration: const BoxDecoration(
-                  color: Color.fromRGBO(0,0,0, 0.03),
+                  color: Color.fromRGBO(0,0,0, 0.08),
                   borderRadius: BorderRadius.all(Radius.circular(15))
                 ),
                 child: Table(
@@ -43,23 +45,40 @@ class BookDetail extends StatelessWidget {
                     ],
                   ),
                 ),
-                Center(
-                  child: TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: const Color.fromRGBO(0, 255, 191, 1),
-                          minimumSize: const Size(150, 50)
-                        ),
-                        onPressed: () { reservar(book.id); },
-                        child: const Text('Reservar'),
-                      )
-                )
               ],
             ),
         ),
+        floatingActionButtonLocation:
+          FloatingActionButtonLocation.endFloat,
+        floatingActionButton: Consumer<BooksController>(builder: (context, controller, _) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              // Verifica se já foi emprestado. Se não foi, permite reserva
+              controller.isBorrowed(book.id) ? const SizedBox.shrink() : Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 8.0, 0),
+                child: FloatingActionButton(
+                  heroTag: "btn1",
+                  onPressed: controller.isReserved(book.id) ? (){controller.removeReserved(book);} : (){controller.saveReserved(book);},
+                  backgroundColor: const Color.fromARGB(195, 0, 230, 172),
+                  child: controller.isReserved(book.id) ? const Icon(Icons.bookmark, color: Colors.white,) : const Icon(Icons.bookmark_outline, color: Colors.white,),
+                ),
+              ),
+              FloatingActionButton(
+                heroTag: "btn2",
+                onPressed: controller.isFavorite(book.id) ? (){controller.removeFavorite(book);} : (){controller.saveFavorite(book);},
+                backgroundColor: const Color.fromRGBO(255, 0, 0, 0.5),
+                child: controller.isFavorite(book.id) ? const Icon(Icons.favorite, color: Colors.white,) : const Icon(Icons.favorite_outline, color: Colors.white,),
+              )
+            ],
+          );
+        })
+      
       );
   }
   }
 
+  // Definindo modelo de tabela para exibição dos dados
   TableRow _buildTableRow(String label, String value) {
     return TableRow(
       children: [

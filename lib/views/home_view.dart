@@ -12,6 +12,7 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
+// View principal, que exibe os livros emprestados e reservados
 class _HomeViewState extends State<HomeView>{
   @override
   Widget build(BuildContext context) {
@@ -40,10 +41,11 @@ class _HomeViewState extends State<HomeView>{
 
         return Column(
           children: [
-            const Padding(padding: EdgeInsets.all(8)),
-            const SectionHeading(headTitle: "Títulos emprestados"),
+            const Padding(padding: EdgeInsets.all(15)),
+            const SectionHeading(headTitle: "Títulos emprestados", icondata: Icons.library_add_check),
             HorizontalBookList(list: controller.borrowedBooks),
-            const SectionHeading(headTitle: "Títulos reservados"),
+            const Padding(padding: EdgeInsets.all(20)),
+            const SectionHeading(headTitle: "Títulos reservados", icondata: Icons.bookmark),
             HorizontalBookList(list: reservedBooks)
           ],
         );

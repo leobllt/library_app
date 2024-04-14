@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:library_app/models/book.dart';
 import 'package:library_app/repositories/books_repository.dart';
 
+// Repositório local
 class MemoryBooksRepository extends BooksRepository {
   final List<Book> _allBooks = [];
   late final List<dynamic> _borrowedBooks;
@@ -10,9 +11,10 @@ class MemoryBooksRepository extends BooksRepository {
  
   MemoryBooksRepository(){
 
-    //NÂO CONSEGUI CARREGAR ARQUIVO EXTERNO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //NÂO CONSEGUI CARREGAR ARQUIVO EXTERNO! Erro por razão de que, para carregar arquivo, precisa ser função assíncrona, o que não dá pra usar aqui
     //var input = File("allbooks_data.json").readAsString();
 
+    // Dados de todos os livros cadastrados
     String input = '''[
             {
                 "id": "01", 
@@ -96,6 +98,7 @@ class MemoryBooksRepository extends BooksRepository {
             }
         ]''';
 
+    // Lendo dados e transformando em lista no repositório
     List<dynamic> data = jsonDecode(input);
 
     for (var book in data) {
@@ -111,6 +114,7 @@ class MemoryBooksRepository extends BooksRepository {
       );
     }
 
+    // Demais dados do usuário: livros emprestados, reservados e favoritados
     //var input2 = File("test_data.json").readAsString();
     String input2 = '''{
       "borrowed": ["01", "02", "03", "04"],
@@ -177,6 +181,21 @@ class MemoryBooksRepository extends BooksRepository {
   @override
   Future<Book> findById(String id){
     return Future.value(_allBooks.firstWhere((book) => book.id == id));
+  }
+
+  @override
+  bool isReserved(String id){
+    return _reservedBooks.contains(id);
+  }
+
+  @override
+  bool isBorrowed(String id){
+    return _borrowedBooks.contains(id);
+  }
+
+  @override
+  bool isFavorite(String id){
+    return _favoriteBooks.contains(id);
   }
 
   List<dynamic> get borrowedBooks => _borrowedBooks;
