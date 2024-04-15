@@ -119,7 +119,7 @@ class MemoryBooksRepository extends BooksRepository {
     String input2 = '''{
       "borrowed": ["01", "02", "03", "04"],
       "reserved": [],
-      "favorite": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
+      "favorite": []
   }''';
 
     var data2 = jsonDecode(input2);

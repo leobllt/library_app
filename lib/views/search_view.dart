@@ -7,6 +7,7 @@ class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SearchViewState createState() => _SearchViewState();
 }
 
@@ -60,6 +61,7 @@ class _SearchViewState extends State<SearchView> {
           if (value!.isEmpty) {
             return "Caixa de pesquisa vazia";
           }
+          return null;
         },
       ),
     );
