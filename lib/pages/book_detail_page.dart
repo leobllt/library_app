@@ -4,9 +4,9 @@ import 'package:library_app/models/book.dart';
 import 'package:provider/provider.dart';
 
 // Página que exibe todos os detalhes do livro selecionado, bem como permite reservá-lo
-class BookDetail extends StatelessWidget {
+class BookDetailPage extends StatelessWidget {
   final Book book;
-  const BookDetail({super.key, required this.book});
+  const BookDetailPage({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {

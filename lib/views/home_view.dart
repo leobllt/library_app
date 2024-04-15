@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/controllers/books_controller.dart';
 import 'package:library_app/pages/favorite_page.dart';
+import 'package:library_app/pages/qr_code_page.dart';
 import 'package:library_app/widgets/horizontal_book_list.dart';
 import 'package:library_app/widgets/section_heading.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,15 @@ class _HomeViewState extends State<HomeView>{
       appBar: AppBar(
         title: const Text("Olá, PESSOA!"),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.qr_code_2),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const QrCodePage()),
+              );
+            }, 
+          ),
           IconButton(
             icon: const Icon(Icons.favorite),
             onPressed: () {
