@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/controllers/books_controller.dart';
 import 'package:library_app/pages/favorite_page.dart';
 import 'package:library_app/pages/qr_code_page.dart';
+import 'package:library_app/repositories/user_books_repository.dart';
 import 'package:library_app/widgets/horizontal_book_list.dart';
 import 'package:library_app/widgets/section_heading.dart';
 import 'package:provider/provider.dart';
@@ -35,31 +35,28 @@ class _HomeViewState extends State<HomeView>{
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const FavoritePage()),
+                MaterialPageRoute(builder: (context) => FavoritePage()),
               );
             }, 
           ),
         ],
         backgroundColor: const Color.fromRGBO(0, 255, 191, 1),
       ),
-      body: Consumer<BooksController>(builder: (context, controller, _) {
-        final reservedBooks = controller.reservedBooks;
-
-        if (controller.loading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        return Column(
-          children: [
-            const Padding(padding: EdgeInsets.all(15)),
-            const SectionHeading(headTitle: "Títulos emprestados", icondata: Icons.library_add_check),
-            HorizontalBookList(list: controller.borrowedBooks),
-            const Padding(padding: EdgeInsets.all(20)),
-            const SectionHeading(headTitle: "Títulos reservados", icondata: Icons.bookmark),
-            HorizontalBookList(list: reservedBooks)
-          ],
-        );
-        }),
+      body: Consumer<UserBooksRepository>(
+              builder: (context, userBooks, _) {
+                return (userBooks.isLoading) ? 
+                        const Center(child: SizedBox(width: 40, height: 40,child: CircularProgressIndicator()),)
+                        : Column(
+                          children: [          
+                            const Padding(padding: EdgeInsets.all(15)),
+                            const SectionHeading(headTitle: "Títulos emprestados", icondata: Icons.library_add_check),
+                            HorizontalBookList(list: userBooks.borrowedList.keys.toList()),
+                            const Padding(padding: EdgeInsets.all(20)),
+                            const SectionHeading(headTitle: "Títulos reservados", icondata: Icons.bookmark),
+                           HorizontalBookList(list: userBooks.reservedList)
+                    ]);   
+                  }
+            )
      );
   }
 }

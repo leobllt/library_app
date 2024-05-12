@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/controllers/books_controller.dart';
-import 'package:library_app/pages/navigation_page.dart';
-import 'package:library_app/repositories/books_repository.dart';
-import 'package:library_app/repositories/memory_books_repository.dart';
+import 'package:library_app/repositories/favorite_repository.dart';
+import 'package:library_app/repositories/user_books_repository.dart';
+import 'package:library_app/services/auth_services.dart';
+import 'package:library_app/widgets/auth_check.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(
     MultiProvider(
       providers: [
-        Provider<BooksRepository>(
-          create: (_) => MemoryBooksRepository(),
+        ChangeNotifierProvider(create: (context) => AuthService()),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteRepository(
+            auth: context.read<AuthService>(),
+          )
         ),
-        ChangeNotifierProvider<BooksController>(
-          create: (context) => BooksController(context.read<BooksRepository>()),
-        ),
+        ChangeNotifierProvider(
+          create: (context) => UserBooksRepository(
+            auth: context.read<AuthService>(),
+          )
+        )
       ],
       child: const App(),
     ),
@@ -32,7 +45,7 @@ class App extends StatelessWidget {
         fontFamily: 'Jost',
         scaffoldBackgroundColor:  const Color.fromRGBO(252, 252, 255, 1),
       ),
-      home: const NavigationPage(),
+      home: const AuthCheck(),
     );
   }
 }

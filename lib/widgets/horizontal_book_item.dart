@@ -21,7 +21,7 @@ class HorizontalBookItem extends StatelessWidget {
             SizedBox(
               width: 90,
               child: Text(
-                book.title,  
+                book.titulo.split(' ').map((e) => e[0].toUpperCase() + e.substring(1)).toList().join(' '),  
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
               ),

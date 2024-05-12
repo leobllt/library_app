@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/views/home_view.dart';
 import 'package:library_app/views/search_view.dart';
-import 'package:library_app/views/services_view.dart';
+import 'package:library_app/views/more_view.dart';
 
 // Esta classe engloba toda a navegação entre as views (pelo menu inferior)
 class NavigationPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _State extends State<NavigationPage> {
   static const List<Widget> _views = [
     HomeView(),
     SearchView(),
-    ServicesView(),
+    MoreView(),
   ];
 
   // método padrão para poder alterar entre views pelo menu

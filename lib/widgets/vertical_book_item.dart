@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/controllers/books_controller.dart';
 import 'package:library_app/models/book.dart';
+import 'package:library_app/repositories/favorite_repository.dart';
 import 'package:provider/provider.dart';
 
 // Classe que representa cada item de uma lista vertical, contendo uma image, dois labels e um botão
@@ -36,7 +36,7 @@ class VerticalBookItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      book.title,
+                      book.titulo.split(' ').map((e) => e[0].toUpperCase() + e.substring(1)).toList().join(' '),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0,
@@ -45,7 +45,7 @@ class VerticalBookItem extends StatelessWidget {
                     ),
                     const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
                     Text(
-                      book.author.join(", "),
+                      book.autores.map((e) => e.split(', ').map((e) => e[0].toUpperCase() + e.substring(1)).toList().join(', ')).toList().join(', '),
                       style: const TextStyle(fontSize: 16.0),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -56,13 +56,14 @@ class VerticalBookItem extends StatelessWidget {
             Flexible(
               //flex: 1,
               child: Center(
-                child: Consumer<BooksController>(builder: (context, controller, _) {
-                  return IconButton(
-                    icon: const Icon(Icons.favorite), //controller.isFavorite(book.id), ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
-                    color: Colors.red, 
-                    onPressed: () => {controller.removeFavorite(book)},
-                  );
-                }
+                child: Consumer<FavoriteRepository>(
+                    builder: (context, favorite, _){
+                      return IconButton(
+                        icon: (favorite.lista.contains(book)) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
+                        color: Colors.red, 
+                        onPressed: () => {(favorite.lista.contains(book)) ? favorite.remove(book) : favorite.save(book)},
+                      );
+                    }
                 )
               )
             ),

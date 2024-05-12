@@ -1,18 +1,22 @@
 class Book {
   final String id;
   final String imgSrc;
-  final String title;
-  final List<dynamic> author;
-  final int publicationYear;
-  final String mainField;
+  final String titulo;
+  final List<String> autores;
+  final String anoPublicacao;
+  final String numeroPaginas;
+  final String areaPrincipal;
+  final bool disponivel;
 
   Book({
     required this.id,
     required this.imgSrc, 
-    required this.title,
-    required this.author,
-    required this.publicationYear,
-    required this.mainField
+    required this.titulo,
+    required this.autores,
+    required this.anoPublicacao,
+    required this.numeroPaginas,
+    required this.areaPrincipal,
+    required this.disponivel
   });
 
   @override
@@ -23,6 +27,6 @@ class Book {
 
   @override
   int get hashCode {
-    return id.hashCode ^ title.hashCode ^ author.hashCode ^ publicationYear.hashCode;
+    return titulo.hashCode ^ autores.hashCode;
   }
 }

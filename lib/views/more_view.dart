@@ -1,55 +1,57 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/services/auth_services.dart';
+import 'package:provider/provider.dart';
 
-class ServicesView extends StatelessWidget {
-  const ServicesView({super.key});
+class MoreView extends StatelessWidget {
+  const MoreView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Serviços'),
+        title: const Text('Opções'),
         backgroundColor: const Color.fromRGBO(0, 255, 191, 1),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(16),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Column (
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _Option(text: "Perfil de interesse"),
-              Divider(
+              const _Option(text: "Meus dados"),
+              const Divider(
                 color: Colors.black,
               ),
-              _Option(text: "Solicitações"),
-              Divider(
+              const _Option(text: "Débitos"),
+              const Divider(
                 color: Colors.black,
               ),
-              _Option(text: "Aquisição"),
-              Divider(
+              const _Option(text: "Histórico"),
+              const Divider(
                 color: Colors.black,
               ),
-              _Option(text: "Comentários"),
-              Divider(
+              const _Option(text: "Declaração de nada consta"),
+              const Divider(
                 color: Colors.black,
               ),
-              _Option(text: "Base de dados"),
-              Divider(
-                color: Colors.black,
-              ),
-              _Option(text: "Dados pessoais"),
-              Divider(
-                color: Colors.black,
-              ),
-              _Option(text: "Plano de ensino"),
-              Divider(
-                color: Colors.black,
-              ),
-              _Option(text: "Solicitar token"),
-              Divider(
-                color: Colors.black,
-              ),
+              Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: ElevatedButton(
+                    onPressed: () => context.read<AuthService>().logout(),
+                    style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 233, 126, 126))),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text('Sair da conta', style: TextStyle(color: Colors.black, fontSize: 16),)
+                        )
+                      ],
+                    ),
+                  ),
+                ),
             ],
           )
         )
