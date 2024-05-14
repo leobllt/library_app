@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:library_app/pages/favorite_page.dart';
 import 'package:library_app/pages/qr_code_page.dart';
 import 'package:library_app/repositories/user_books_repository.dart';
+import 'package:library_app/repositories/user_data_repository.dart';
 import 'package:library_app/widgets/horizontal_book_list.dart';
 import 'package:library_app/widgets/section_heading.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class _HomeViewState extends State<HomeView>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Olá, PESSOA!"),
+        title: Text("Olá, ${context.watch<UserDataRepository>().contaLogada?.nome ?? ''}"),
         actions: [
           IconButton(
             icon: const Icon(Icons.qr_code_2),
@@ -50,7 +51,7 @@ class _HomeViewState extends State<HomeView>{
                           children: [          
                             const Padding(padding: EdgeInsets.all(15)),
                             const SectionHeading(headTitle: "Títulos emprestados", icondata: Icons.library_add_check),
-                            HorizontalBookList(list: userBooks.borrowedList.keys.toList()),
+                            HorizontalBookList(list: userBooks.borrowedMap.keys.toList()),
                             const Padding(padding: EdgeInsets.all(20)),
                             const SectionHeading(headTitle: "Títulos reservados", icondata: Icons.bookmark),
                            HorizontalBookList(list: userBooks.reservedList)
@@ -59,4 +60,5 @@ class _HomeViewState extends State<HomeView>{
             )
      );
   }
+
 }

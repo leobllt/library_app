@@ -43,13 +43,13 @@ class FavoriteRepository extends ChangeNotifier{
           _lista.add(
             Book(
               id: element,
-              imgSrc: 'assets/imgs/$element.jpg',
               titulo: book['titulo'],
               autores: List<String>.from(book['autores']),
               anoPublicacao: book['anoPublicacao'],
               numeroPaginas: book['numeroPaginas'],
               areaPrincipal: book['areaPrincipal'],
-              disponivel: book['disponivel']
+              disponivel: book['disponivel'],
+              url: book['url']
             ) 
           );
           notifyListeners();

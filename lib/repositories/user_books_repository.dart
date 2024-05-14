@@ -9,6 +9,7 @@ import 'package:library_app/services/auth_services.dart';
 class UserBooksRepository extends ChangeNotifier{
   final List<Book> _reservedBooks = [];
   final Map<Book,DateTime> _borrowedBooks = {};
+  final Map<Book,DateTime> _bookHistory = {};
   late FirebaseFirestore db;
   late AuthService auth;
   bool isLoading = true;
@@ -21,6 +22,7 @@ class UserBooksRepository extends ChangeNotifier{
     await _startFirebase();
     await _readBorrowed();
     await _readReserved();
+    await _readHistory();
     isLoading = false;
     notifyListeners();
   }
@@ -45,13 +47,13 @@ class UserBooksRepository extends ChangeNotifier{
           _reservedBooks.add(
             Book(
               id: element,
-              imgSrc: 'assets/imgs/$element.jpg',
               titulo: book['titulo'],
               autores: List<String>.from(book['autores']),
               anoPublicacao: book['anoPublicacao'],
               numeroPaginas: book['numeroPaginas'],
               areaPrincipal: book['areaPrincipal'],
-              disponivel: book['disponivel']
+              disponivel: book['disponivel'],
+              url: book['url']
             )
           );
           notifyListeners();
@@ -62,7 +64,7 @@ class UserBooksRepository extends ChangeNotifier{
 
   Future<void> _readBorrowed() async{
     if(auth.usuario != null && _borrowedBooks.isEmpty){
-      final snapshot = await db.collection('usuarios/${auth.usuario!.uid}/emprestimos').get();
+      final snapshot = await db.collection('usuarios/${auth.usuario!.uid}/emprestimos').where('entregue', isEqualTo: false).get();
       
       if(snapshot.docs.isEmpty) return;
 
@@ -78,13 +80,13 @@ class UserBooksRepository extends ChangeNotifier{
           _borrowedBooks.addAll({
             Book(
               id: doc.get('livro'),
-              imgSrc: 'assets/imgs/${doc.get('livro')}.jpg',
               titulo: book['titulo'],
               autores: List<String>.from(book['autores']),
               anoPublicacao: book['anoPublicacao'],
               numeroPaginas: book['numeroPaginas'],
               areaPrincipal: book['areaPrincipal'],
-              disponivel: book['disponivel']
+              disponivel: book['disponivel'],
+              url: book['url']
             ) :
             t.toDate()
           }
@@ -96,8 +98,46 @@ class UserBooksRepository extends ChangeNotifier{
     }
   }
 
+
+Future<void> _readHistory() async{
+    if(auth.usuario != null && _bookHistory.isEmpty){
+      final snapshot = await db.collection('usuarios/${auth.usuario!.uid}/emprestimos').where('entregue', isEqualTo: true).get();
+      
+      if(snapshot.docs.isEmpty) return;
+
+      snapshot.docs.forEach((doc) async {
+        final book = await db.collection('livros')
+                          .doc(doc.get('livro'))
+                          .get()
+                          .then((value) => value.data());
+        
+        Timestamp t = doc.get('dataEntrega');
+
+        if(book != null){
+          _bookHistory.addAll({
+            Book(
+              id: doc.get('livro'),
+              titulo: book['titulo'],
+              autores: List<String>.from(book['autores']),
+              anoPublicacao: book['anoPublicacao'],
+              numeroPaginas: book['numeroPaginas'],
+              areaPrincipal: book['areaPrincipal'],
+              disponivel: book['disponivel'],
+              url: book['url']
+            ) :
+            t.toDate()
+          }
+          );
+          notifyListeners();
+        }
+      });
+
+    }
+  }
   UnmodifiableListView<Book> get reservedList => UnmodifiableListView(_reservedBooks);
-  UnmodifiableMapView<Book,DateTime> get borrowedList => UnmodifiableMapView(_borrowedBooks);
+  UnmodifiableMapView<Book,DateTime> get borrowedMap => UnmodifiableMapView(_borrowedBooks);
+  UnmodifiableMapView<Book,DateTime> get historyMap => UnmodifiableMapView(_bookHistory);
+
 
   void saveReserved(Book book) async {
     if(auth.usuario == null) return;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/repositories/favorite_repository.dart';
 import 'package:library_app/repositories/user_books_repository.dart';
+import 'package:library_app/repositories/user_data_repository.dart';
 import 'package:library_app/services/auth_services.dart';
 import 'package:library_app/widgets/auth_check.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,11 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(
+          create: (context) => UserDataRepository(
+            auth: context.read<AuthService>(),
+          )
+        ),
+        ChangeNotifierProvider(
           create: (context) => FavoriteRepository(
             auth: context.read<AuthService>(),
           )
@@ -27,7 +33,7 @@ void main() async {
           create: (context) => UserBooksRepository(
             auth: context.read<AuthService>(),
           )
-        )
+        ),
       ],
       child: const App(),
     ),

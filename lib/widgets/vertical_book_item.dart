@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/models/book.dart';
 import 'package:library_app/repositories/favorite_repository.dart';
+import 'package:library_app/repositories/user_books_repository.dart';
 import 'package:provider/provider.dart';
 
 // Classe que representa cada item de uma lista vertical, contendo uma image, dois labels e um botão
 class VerticalBookItem extends StatelessWidget {
   final Book book;
-  const VerticalBookItem({super.key, required this.book});
+  final bool isHistoryItem;
+  const VerticalBookItem({super.key, required this.book, required this.isHistoryItem});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,8 @@ class VerticalBookItem extends StatelessWidget {
           children: <Widget>[
             Expanded(
               flex: 2,
-              child: Image.asset(
-                  book.imgSrc,
+              child: Image.network(
+                  book.url,
                   height: 100),
             ),
             Expanded(
@@ -49,24 +51,44 @@ class VerticalBookItem extends StatelessWidget {
                       style: const TextStyle(fontSize: 16.0),
                       overflow: TextOverflow.ellipsis,
                     ),
+                    (isHistoryItem) ? Padding(
+                                        padding: const EdgeInsets.fromLTRB(0,5,0,0),
+                                        child: RichText(
+                                          overflow: TextOverflow.ellipsis,
+                                            text: TextSpan(
+                                              style: const TextStyle(
+                                                fontSize: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                              children: <TextSpan>[
+                                                const TextSpan(text: 'Entregue em ', style: TextStyle(fontWeight: FontWeight.bold)),
+                                                TextSpan(text: '${context.watch<UserBooksRepository>().historyMap[book]!.day.toString()}'
+                                                      +'/${context.watch<UserBooksRepository>().historyMap[book]!.month.toString()}'
+                                                      +'/${context.watch<UserBooksRepository>().historyMap[book]!.year.toString()}'
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                      )
+                                    : const SizedBox.shrink()
                   ],
                 ),
               )
             ),
-            Flexible(
-              //flex: 1,
-              child: Center(
-                child: Consumer<FavoriteRepository>(
-                    builder: (context, favorite, _){
-                      return IconButton(
-                        icon: (favorite.lista.contains(book)) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
-                        color: Colors.red, 
-                        onPressed: () => {(favorite.lista.contains(book)) ? favorite.remove(book) : favorite.save(book)},
-                      );
-                    }
-                )
-              )
-            ),
+            (!isHistoryItem) ? Flexible(
+                                child: Center(
+                                  child: Consumer<FavoriteRepository>(
+                                      builder: (context, favorite, _){
+                                        return IconButton(
+                                          icon: (favorite.lista.contains(book)) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_outline),
+                                          color: Colors.red, 
+                                          onPressed: () => {(favorite.lista.contains(book)) ? favorite.remove(book) : favorite.save(book)},
+                                        );
+                                      }
+                                  )
+                                )
+                              )
+                            : const SizedBox.shrink()
           ],
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:library_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage ({Key? key}) : super(key:key);
@@ -15,17 +16,12 @@ class _LoginPageState extends State<LoginPage> {
   final _ra = TextEditingController();
   final _pw = TextEditingController();
 
-  //var httpsUri = Uri(scheme: "https", host: "ajuda.utfpr.edu.br", path: "/pt-br/servicos_deinfra/recupera_senha");
-  bool isLogin = true;
-  late String toggleButton;
-  late String title;
-  late String actionButton;
+  var httpsUri = Uri(scheme: "https", host: "ajuda.utfpr.edu.br", path: "/pt-br/servicos_deinfra/recupera_senha");
   bool loading = false;
 
   @override
   void initState() {
     super.initState();
-    setFormAction(true);
   } 
 
   @override
@@ -40,9 +36,9 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
+                const Text(
+                  "Bem vindo(a)",
+                  style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -78,13 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.all(24),
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (isLogin) {
-                        _login();
-                      } else {
-                        _changePassword();
-                      }
-                    },
+                    onPressed: () => _login(),
                     style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(20,184,143,1))
                     ),
@@ -94,15 +84,15 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: const EdgeInsets.all(24),
                           child: (loading) ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator()) :
-                                              Text(actionButton, style: const TextStyle(color: Colors.black, fontSize: 16),)
+                                              const Text("Entrar", style: TextStyle(color: Colors.black, fontSize: 16),)
                         )
                       ],
                     ),
                   ),
                 ),
                 TextButton(
-                  onPressed: () => setFormAction(!isLogin),
-                  child: Text(toggleButton),
+                  onPressed: () => alterarSenha(),
+                  child: Text('Alterar senha'),
                 ),
               ],
             ), 
@@ -124,22 +114,7 @@ class _LoginPageState extends State<LoginPage> {
       validator: validator,
     );
   }
-    
 
-  void setFormAction(bool acao) {
-    setState(() {
-      isLogin = acao;
-      if (isLogin) {
-        toggleButton = "Alterar Senha";
-        title = "Bem vindo";
-        actionButton= "Login";
-      } else {
-        toggleButton = "Fazer Login";
-        title = "Redefinir Senha";
-        actionButton= "Redefinir"; 
-      }
-    });
-  }
 
   
   Future<void> _login () async {
@@ -154,10 +129,9 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  
-  void _changePassword() {
-    if (_formKey.currentState!.validate()) {
-
+  alterarSenha() async{
+    if (!await launchUrl(httpsUri)){
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Contate diretamente um servidor da biblioteca local.')));
     }
   }
 }

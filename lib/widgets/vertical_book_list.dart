@@ -7,7 +7,8 @@ import 'package:library_app/widgets/vertical_book_item.dart';
 // É possível exibir os detalhes de um livro ao clicá-lo
 class VerticalBookList extends StatelessWidget {
   final List<Book> list;
-  const VerticalBookList({super.key, required this.list});
+  final bool isHistoryList;
+  const VerticalBookList({super.key, required this.list, required this.isHistoryList});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +24,13 @@ class VerticalBookList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap:  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => BookDetailPage(book: list[index])),
-                    );
+                    (!isHistoryList) ? Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => BookDetailPage(book: list[index])),
+                                        )
+                                      : {};
                   },
-                  child: VerticalBookItem(book: list[index])
+                  child: VerticalBookItem(book: list[index], isHistoryItem: isHistoryList)
                   );
               },
             ),

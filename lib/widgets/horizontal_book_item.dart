@@ -12,8 +12,8 @@ class HorizontalBookItem extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[
-            Image.asset(
-              book.imgSrc,
+            Image.network(
+              book.url,
               width: 90,
               height: 120,
               fit: BoxFit.contain,

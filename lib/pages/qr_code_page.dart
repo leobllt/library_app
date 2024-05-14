@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/repositories/user_data_repository.dart';
+import 'package:provider/provider.dart';
+
 
 // Página que exibe todos os detalhes do livro selecionado, bem como permite reservá-lo
-class QrCodePage extends StatelessWidget {
+class QrCodePage extends StatefulWidget {
   const QrCodePage({super.key});
+  @override
+  State<QrCodePage> createState() => _QrCodePageState();
+}
 
+class _QrCodePageState extends State<QrCodePage>{
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -15,25 +22,22 @@ class QrCodePage extends StatelessWidget {
         child: Column(
           children: [
             const Padding(padding: EdgeInsets.all(10)),
-            const Text(
-              "Nome Sobrenome",
-              style: TextStyle(
+            Text(
+              '${context.watch<UserDataRepository>().contaLogada?.nome} ${context.watch<UserDataRepository>().contaLogada?.sobrenome}',
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold
               ),
             ),
             const Padding(padding: EdgeInsets.all(5)),
-            const Text(
-              "a1233345",
-              style: TextStyle(
+            Text(
+              context.watch<UserDataRepository>().contaLogada?.ra ?? '----',
+              style: const TextStyle(
                 fontSize: 20,
               ),
             ),
             const Padding(padding: EdgeInsets.all(5)),
-            Image.asset(
-              "assets/imgs/QRCode.jpg",
-              height: 250,
-            )
+            Image.network(context.watch<UserDataRepository>().contaLogada!.qr)
           ],
         ),
       )

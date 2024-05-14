@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/databases/queries/search_query.dart';
+import 'package:library_app/databases/queries/DBQuery.dart';
 import 'package:library_app/models/book.dart';
 import 'package:library_app/widgets/vertical_book_list.dart';
 
@@ -85,7 +85,7 @@ class _SearchViewState extends State<SearchView> {
       setState(() {
         loading = true;
       });
-      final res = await SearchQuery.searchBooks(_value.text);
+      final res = await DBQuery.searchBooks(_value.text);
       setState(() {
         loading = false;
         results = res;
@@ -95,6 +95,6 @@ class _SearchViewState extends State<SearchView> {
 
   Widget _buildSearchResults() {
     return (loading) ? const Center(child: CircularProgressIndicator())
-                      : VerticalBookList(list: results);
+                      : VerticalBookList(list: results, isHistoryList: false);
   }
 }

@@ -23,7 +23,7 @@ class BookDetailPage extends StatelessWidget {
             Center(
               child: SizedBox(
                 height: 200,
-                child: Image.asset(book.imgSrc)
+                child: Image.network(book.url)
               ),
             ),
             Container(
@@ -61,9 +61,9 @@ class BookDetailPage extends StatelessWidget {
                         1: FlexColumnWidth(2), // Define a largura da segunda coluna
                       },
                       children: [
-                        (userBooks.borrowedList.keys.contains(book)) 
+                        (userBooks.borrowedMap.keys.contains(book)) 
                         ? _buildTableRow('Data entrega:', 
-                                        '${userBooks.borrowedList[book]!.day.toString()}/${userBooks.borrowedList[book]!.month.toString()}') 
+                                        '${userBooks.borrowedMap[book]!.day.toString()}/${userBooks.borrowedMap[book]!.month.toString()}') 
                         : _buildTableRow('Status:', (book.disponivel) ? 'Disponível' : 'Indisponível')
                       ],
                     ),
@@ -80,7 +80,7 @@ class BookDetailPage extends StatelessWidget {
             // Verifica se já foi emprestado. Se não foi, permite reserva
             Consumer<UserBooksRepository>(
               builder: (context, userBooks, _) {
-                return userBooks.borrowedList.keys.contains(book) ? const SizedBox.shrink() 
+                return userBooks.borrowedMap.keys.contains(book) ? const SizedBox.shrink() 
                       : Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 8.0, 0),
                           child: FloatingActionButton(

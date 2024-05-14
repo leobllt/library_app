@@ -24,7 +24,7 @@ class _FavoritePageState extends State<FavoritePage> {
         if(favorite.isLoading) 
           return const Center(child: SizedBox(width: 40, height: 40,child: CircularProgressIndicator()),);
         else
-          return VerticalBookList(list: favorite.lista);
+          return VerticalBookList(list: favorite.lista, isHistoryList: false);
       }
       )
     );

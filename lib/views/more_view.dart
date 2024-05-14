@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/pages/debits_page.dart';
+import 'package:library_app/pages/feedback_page.dart';
+import 'package:library_app/pages/history_page.dart';
+import 'package:library_app/pages/user_detail.page.dart';
+import 'package:library_app/repositories/user_data_repository.dart';
 import 'package:library_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
 
@@ -20,19 +25,23 @@ class MoreView extends StatelessWidget {
           child: Column (
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const _Option(text: "Meus dados"),
+             _Option(text: "Meus dados", widget: UserDetailPage(userAccount: context.read<UserDataRepository>().contaLogada),),
               const Divider(
                 color: Colors.black,
               ),
-              const _Option(text: "Débitos"),
+              const _Option(text: "Multas", widget: DebitsPage()),
               const Divider(
                 color: Colors.black,
               ),
-              const _Option(text: "Histórico"),
+              const _Option(text: "Histórico", widget: HistoryPage()),
               const Divider(
                 color: Colors.black,
               ),
-              const _Option(text: "Declaração de nada consta"),
+              const _Option(text: "Declaração de nada consta", widget: null),
+              const Divider(
+                color: Colors.black,
+              ),
+              const _Option(text: "Dê seu feedback", widget: FeedbackPage()),
               const Divider(
                 color: Colors.black,
               ),
@@ -62,12 +71,17 @@ class MoreView extends StatelessWidget {
 
 class _Option extends StatelessWidget{
     final String text;
-    const _Option({required this.text});
+    final Widget? widget;
+    const _Option({required this.text, required this.widget});
 
     @override
     Widget build(BuildContext context) {
       return CupertinoButton(
-        onPressed: () {},
+        onPressed: () { if(widget!=null)
+          Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => widget!),
+        );},
         alignment: Alignment.centerLeft,
         child: Row(
           children: [
