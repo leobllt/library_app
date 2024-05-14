@@ -4,6 +4,7 @@ import 'package:library_app/pages/navigation_page.dart';
 import 'package:library_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
 
+// Classe que alterna entre área de login e área funcional do app (com usuário já autenticado)
 class AuthCheck extends StatefulWidget {
   const AuthCheck({super.key});
 

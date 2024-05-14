@@ -4,6 +4,7 @@ import 'package:library_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// Classe que exibe o formulário de login para o usuário
 class LoginPage extends StatefulWidget {
   LoginPage ({Key? key}) : super(key:key);
 

@@ -3,6 +3,7 @@ import 'package:library_app/databases/queries/DBQuery.dart';
 import 'package:library_app/models/book.dart';
 import 'package:library_app/widgets/vertical_book_list.dart';
 
+// Classe que implementa a busca no acervo de livros
 class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
 

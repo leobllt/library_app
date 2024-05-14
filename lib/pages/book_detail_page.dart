@@ -4,7 +4,7 @@ import 'package:library_app/repositories/favorite_repository.dart';
 import 'package:library_app/repositories/user_books_repository.dart';
 import 'package:provider/provider.dart';
 
-// Página que exibe todos os detalhes do livro selecionado, bem como permite reservá-lo
+// Página que exibe todos os detalhes do livro selecionado, bem como permite favoritá-lo e/ou reservá-lo (caso já não esteja emprestado) 
 class BookDetailPage extends StatelessWidget {
   final Book book;
   const BookDetailPage({super.key, required this.book});

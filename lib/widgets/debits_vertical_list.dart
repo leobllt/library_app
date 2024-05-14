@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/widgets/debits_vertical_item.dart';
 
-
+// Classe que exibe as multas verticalmente
 class DebitsVerticalList extends StatelessWidget {
   final List<Map<String,String>> list;
   const DebitsVerticalList({super.key, required this.list});

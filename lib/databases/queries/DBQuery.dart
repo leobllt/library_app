@@ -7,11 +7,13 @@ class SearchException implements Exception{
   SearchException({required this.message});
 }
 
+// Classe para executar queries específicas no BD, sem depender de um repositório
 class DBQuery{
   late FirebaseFirestore db;
 
   DBQuery._();
 
+  // Retorna todos os livros que iniciem com 'keywords'
   static Future<List<Book>> searchBooks(String keywords) async {
     FirebaseFirestore db = DBFirestore.get();
     
@@ -48,6 +50,7 @@ class DBQuery{
     return result;
   }
   
+  // Insere um novo documento na coleção 'feedbacks'
   static insertFeedback(String userId, String option, String description){
     FirebaseFirestore db = DBFirestore.get();
     final doc = db.collection('feedbacks').doc();

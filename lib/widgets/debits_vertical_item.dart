@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-
+// Classe que representa cada item de uma lista vertical, contendo dois labels e um botão
 class DebitsVerticalItem extends StatelessWidget {
   final Map<String,String> map;
   const DebitsVerticalItem({super.key, required this.map});

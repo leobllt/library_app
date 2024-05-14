@@ -7,6 +7,7 @@ class AuthException implements Exception{
   AuthException({required this.message});
 }
 
+// Classe que permite a autenticação de usuários no app
 class AuthService extends ChangeNotifier{
   final FirebaseAuth _auth = FirebaseAuth.instance;
 

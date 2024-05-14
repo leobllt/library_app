@@ -4,6 +4,7 @@ import 'package:library_app/databases/queries/DBQuery.dart';
 import 'package:library_app/repositories/user_data_repository.dart';
 import 'package:provider/provider.dart';
 
+// Classe que exibe um forms para registrar feedbacks
 class FeedbackPage extends StatefulWidget {
   const FeedbackPage({super.key});
 

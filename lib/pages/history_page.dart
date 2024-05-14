@@ -3,7 +3,7 @@ import 'package:library_app/repositories/user_books_repository.dart';
 import 'package:library_app/widgets/vertical_book_list.dart';
 import 'package:provider/provider.dart';
 
-// Classe que exibe livros favoritados pelo usuário
+// Classe que exibe o históricos de livros emprestados pelo usuário
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
 

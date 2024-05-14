@@ -3,7 +3,7 @@ import 'package:library_app/repositories/user_data_repository.dart';
 import 'package:provider/provider.dart';
 
 
-// Página que exibe todos os detalhes do livro selecionado, bem como permite reservá-lo
+// Página que exibe os dados básicos do usuário logado (nome, ra), bem como seu QRCode
 class QrCodePage extends StatefulWidget {
   const QrCodePage({super.key});
   @override

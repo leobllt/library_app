@@ -4,6 +4,7 @@ import 'package:library_app/databases/db_firestore.dart';
 import 'package:library_app/models/useraccount.dart';
 import 'package:library_app/services/auth_services.dart';
 
+// Classe que armazena localmente dados da conta logada e faz sincronização com o banco de dados
 class UserDataRepository extends ChangeNotifier{
   UserAccount? contaLogada = null;
   List<Map<String,String>> debits = [];

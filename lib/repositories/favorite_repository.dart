@@ -1,11 +1,11 @@
 import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:library_app/databases/db_firestore.dart';
 import 'package:library_app/models/book.dart';
 import 'package:library_app/services/auth_services.dart';
 
+// Classe que armazena localmente favoritos e faz sincronização com o banco de dados
 class FavoriteRepository extends ChangeNotifier{
   final List<Book> _lista = [];
   late FirebaseFirestore db;

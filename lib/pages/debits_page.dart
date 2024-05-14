@@ -3,6 +3,7 @@ import 'package:library_app/repositories/user_data_repository.dart';
 import 'package:library_app/widgets/debits_vertical_list.dart';
 import 'package:provider/provider.dart';
 
+// Classe para exibir os débitos ('multas') do usuário logado
 class DebitsPage extends StatefulWidget {
   const DebitsPage({Key? key}) : super(key: key);
 

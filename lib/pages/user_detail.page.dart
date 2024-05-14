@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:library_app/models/useraccount.dart';
 
+// Classe que exibe detalhes do usuário logado
 class UserDetailPage extends StatelessWidget {
   final UserAccount? userAccount;
   const UserDetailPage({super.key, required this.userAccount});

@@ -8,6 +8,7 @@ import 'package:library_app/repositories/user_data_repository.dart';
 import 'package:library_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
 
+// View com demais opções disponíveis para o usuário logado
 class MoreView extends StatelessWidget {
   const MoreView({super.key});
 
