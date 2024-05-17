@@ -1,16 +1,40 @@
-# library_app
+# Library_app
 
-A new Flutter project.
+Projeto desenvolvido para a disciplina de Programação de Dispositivos Móveis, do curso de Ciência da Computação na UTFPR-PG.
 
-## Getting Started
+ **Alunos participantes:**  Leonardo Bellato Antonio e Thiago Renan de Lima
+ **Professor orientador:**  Diego Roberto Antunes
 
-This project is a starting point for a Flutter application.
+## Informações
 
-A few resources to get you started if this is your first Flutter project:
+- **Nome do aplicativo:** A definir
+- **Versão:** Protótipo inicial
+- **Descrição:** Aplicativo móvel que permite consultar o acervo de livros do campus, gerenciar livros emprestados e reservados, e ter acesso a demais serviços oferecidos pela biblioteca física.
+- **Motivação:** Em vista da falta de aplicativos móveis de biblioteca para uso na universidade, uma vez que todo gerenciamento e consulta de acervo é feito online por meio de plataformas conveniadas, este projeto surge como uma iniciativa de criar um produto gratuito dentro da universidade, feito de estudantes para estudantes, visando ampliar e facilitar acesso aos serviços da nossa biblioteca.
+- **Bugs:** Nenhum identificado durante os testes
+- **Funcionalidades faltantes:**
+    - Todos os serviços da tela Services
+    - Login de usuário
+- **Atividades desenvolvidas pelos membros:**
+    - Ambos: Concepção do app, idealização do layout e criação das telas em conjunto.
+    - Thiago: Utilização de API.
+    - Leonardo: Adição de repositórios e BD.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Instalação e execução
+
+Como o aplicativo está em desenvolvimento e em versão inicial, não há um arquivo .apk disponível diretamente para download. É necessário baixar o código e compilá-lo. Para isso:
+*Certifique-se de ter git instalado, bem como o Flutter SDK e Android SDK, e ao menos um dispositivo para executar o app (emulador ou smartphone Android)*
+
+- Na sua máquina, basta clonar este repositório e executá-lo via linha de comando, que o Flutter resolverá todas as dependências e compilará o aplicativo, executando-o automaticamente em seguida:
+
+```sh
+git clone https://github.com/leobllt/library_app.git
+cd library_app
+flutter emulators --launch nome_do_emulador # OPCIONAL. CASO USE EMULADORES, SUBSTITUA PELO NOME DO MESMO
+flutter run
+```
+
+**Usuário para login:**
+* RA: a1234567
+* Senha: senha123 
