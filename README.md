@@ -13,8 +13,9 @@ Projeto desenvolvido para a disciplina de Programação de Dispositivos Móveis,
 - **Motivação:** Em vista da falta de aplicativos móveis de biblioteca para uso na universidade, uma vez que todo gerenciamento e consulta de acervo é feito online por meio de plataformas conveniadas, este projeto surge como uma iniciativa de criar um produto gratuito dentro da universidade, feito de estudantes para estudantes, visando ampliar e facilitar acesso aos serviços da nossa biblioteca.
 - **Bugs:** Nenhum identificado durante os testes
 - **Funcionalidades faltantes:**
-    - Todos os serviços da tela Services
-    - Login de usuário
+    - uso de API
+    - a função de solicitar livros de outros campi
+    - entre outras mínimas adições 
 - **Atividades desenvolvidas pelos membros:**
     - Ambos: Concepção do app, idealização do layout e criação das telas em conjunto.
     - Thiago: Utilização de API.
