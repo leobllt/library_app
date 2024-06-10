@@ -38,7 +38,10 @@ class MoreView extends StatelessWidget {
               const Divider(
                 color: Colors.black,
               ),
-              const _Option(text: "Declaração de nada consta", widget: null),
+              InkWell(
+                onTap: () => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Serviço disponível apenas presencialmente na biblioteca."))), 
+                child: const IgnorePointer(child: _Option(text: "Declaração de nada consta", widget: null))
+              ),
               const Divider(
                 color: Colors.black,
               ),
