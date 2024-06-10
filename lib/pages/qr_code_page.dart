@@ -18,27 +18,29 @@ class _QrCodePageState extends State<QrCodePage>{
         title: const Text('Acesso QRCode'),
         backgroundColor: const Color.fromRGBO(0, 255, 191, 1),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            const Padding(padding: EdgeInsets.all(10)),
-            Text(
-              '${context.watch<UserDataRepository>().contaLogada?.nome} ${context.watch<UserDataRepository>().contaLogada?.sobrenome}',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.all(10)),
+              Text(
+                '${context.watch<UserDataRepository>().contaLogada?.nome} ${context.watch<UserDataRepository>().contaLogada?.sobrenome}',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold
+                ),
               ),
-            ),
-            const Padding(padding: EdgeInsets.all(5)),
-            Text(
-              context.watch<UserDataRepository>().contaLogada?.ra ?? '----',
-              style: const TextStyle(
-                fontSize: 20,
+              const Padding(padding: EdgeInsets.all(5)),
+              Text(
+                context.watch<UserDataRepository>().contaLogada?.ra ?? '----',
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
               ),
-            ),
-            const Padding(padding: EdgeInsets.all(5)),
-            Image.network(context.watch<UserDataRepository>().contaLogada!.qr)
-          ],
+              const Padding(padding: EdgeInsets.all(5)),
+              Image.network(context.watch<UserDataRepository>().contaLogada!.qr)
+            ],
+          ),
         ),
       )
      );
