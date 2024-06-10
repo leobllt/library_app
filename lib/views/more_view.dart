@@ -5,7 +5,7 @@ import 'package:library_app/pages/feedback_page.dart';
 import 'package:library_app/pages/history_page.dart';
 import 'package:library_app/pages/user_detail.page.dart';
 import 'package:library_app/repositories/user_data_repository.dart';
-import 'package:library_app/services/auth_services.dart';
+import 'package:library_app/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 // View com demais opções disponíveis para o usuário logado

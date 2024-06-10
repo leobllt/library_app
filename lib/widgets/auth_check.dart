@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/pages/login_page.dart';
 import 'package:library_app/pages/navigation_page.dart';
-import 'package:library_app/services/auth_services.dart';
+import 'package:library_app/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 // Classe que alterna entre área de login e área funcional do app (com usuário já autenticado)
@@ -19,7 +19,7 @@ class _AuthCheckState extends State<AuthCheck> {
 
     if(auth.isLoading)
       return loading();
-    else if(auth.usuario == null) 
+    else if(auth.usuario == null)
       return LoginPage();
     else
       return const NavigationPage();

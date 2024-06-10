@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:library_app/repositories/favorite_repository.dart';
 import 'package:library_app/repositories/user_books_repository.dart';
 import 'package:library_app/repositories/user_data_repository.dart';
-import 'package:library_app/services/auth_services.dart';
+import 'package:library_app/services/auth_service.dart';
 import 'package:library_app/widgets/auth_check.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';

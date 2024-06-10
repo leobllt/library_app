@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:library_app/databases/db_firestore.dart';
 import 'package:library_app/models/book.dart';
-import 'package:library_app/services/auth_services.dart';
+import 'package:library_app/services/auth_service.dart';
 
 // Classe que armazena localmente livros emprestados, reservados e do histórico, e faz sincronização com o banco de dados
 class UserBooksRepository extends ChangeNotifier{
