@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:library_app/models/library.dart';
+import 'package:library_app/repositories/local_library.repository.dart';
+import 'package:library_app/widgets/library_details.dart';
 
+final appKey = GlobalKey();
 
 // View com demais opções disponíveis para o usuário logado
 class MapView extends StatefulWidget {
@@ -47,18 +51,15 @@ class _MapViewState extends State<MapView>{
     });
   }
 
-  void _addLibraryMarkers() {
-    final List<LatLng> libraryLocations = [
-      const LatLng(-25.0520, -50.1302), // Localização PG
-      const LatLng( -25.4395, -49.2692), // Localização Curitiba
-    ];
-
-    for (LatLng location in libraryLocations) {
+  void _addLibraryMarkers() { 
+    for (Library lib in LocalLibrary.lista) {
       _markers.add(
         Marker(
-          markerId: MarkerId(location.toString()),
-          position: location,
-          infoWindow: const InfoWindow(title: 'Unidade da Biblioteca'),
+          markerId: MarkerId(lib.localizacao.toString()),
+          position: lib.localizacao,
+          onTap: () => {
+            showModalBottomSheet(context: appKey.currentState!.context, builder: (context) => LibraryDetails(lib: lib))
+          }
         ),
       );
     }
@@ -67,6 +68,7 @@ class _MapViewState extends State<MapView>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: appKey,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Unidades'),
