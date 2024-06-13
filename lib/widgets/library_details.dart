@@ -25,9 +25,22 @@ class LibraryDetails extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 60, left: 24),
+            padding: const EdgeInsets.only(bottom: 30, left: 24),
             child: Text(
               lib.endereco,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 60, left: 24),
+            child: RichText(
+                text: TextSpan(
+                  text: '',
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    const TextSpan(text: 'Horário de funcionamento: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: lib.horario),
+                  ],
+                ),
             ),
           ),
         ],

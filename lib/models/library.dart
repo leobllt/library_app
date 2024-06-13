@@ -6,13 +6,15 @@ class Library {
   final LatLng localizacao;
   final String imgSrc;
   final String endereco;
+  final String horario;
 
   Library({
     required this.code,
     required this.nome,
     required this.localizacao,
     required this.imgSrc,
-    required this.endereco
+    required this.endereco,
+    required this.horario
   });
 
   @override
