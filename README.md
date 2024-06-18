@@ -19,7 +19,7 @@ Projeto desenvolvido para a disciplina de Programação de Dispositivos Móveis,
 - **Atividades desenvolvidas pelos membros:**
     - Ambos: Concepção do app, idealização do layout e criação das telas em conjunto.
     - Thiago: Utilização de API.
-    - Leonardo: Adição de repositórios e BD.
+    - Leonardo: Firebase e CloudFunctions.
 
 
 ## Instalação e execução
@@ -39,3 +39,6 @@ flutter run
 **Usuário para login:**
 * RA: a1234567
 * Senha: senha123 
+
+**Nota:**
+No arquivo "cloud_functions.js" é possível ver a implementação utilizada no Firebase.

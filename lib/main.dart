@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/repositories/favorite_repository.dart';
 import 'package:library_app/repositories/user_books_repository.dart';
@@ -14,6 +15,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+ 
+  String? token = await FirebaseMessaging.instance.getToken();
+  print(token);
 
   runApp(
     MultiProvider(
